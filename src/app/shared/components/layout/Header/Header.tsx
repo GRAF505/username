@@ -8,13 +8,16 @@ import cn from 'classnames';
 import { useState } from 'react';
 import { Search } from '@/app/shared/icons/Search';
 import { useLoginStore } from '@/app/core/providers/loginProvider';
+
 const Header = () => {
   const [isActiveInput, setIsActiveInput] = useState<boolean>(false);
   const setUsername = useLoginStore((state) => state.setUsername);
+  const username = useLoginStore((state) => state.username); // Получаем значение username из хранилища
 
   const handleLogin = () => {
     setUsername("Ivan123");
   };
+
   return (
     <header className={s.header}>
       <Container>
@@ -33,7 +36,7 @@ const Header = () => {
             </div>
           </div>
           <button onClick={handleLogin}>
-            Login
+            {username || 'Login'} {/* Отображаем username или 'Login', если username пуст */}
           </button>
           <div className={s.buttons}>
             <div className={s.buttons__item}>
